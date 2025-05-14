@@ -1,0 +1,13 @@
+.app {
+  font-family: sans-serif;
+  text-align: center;
+  margin-top: 40px;
+}
+.controls input {
+  margin: 5px;
+  padding: 5px;
+}
+.result {
+  margin-top: 20px;
+  font-size: 18px;
+}

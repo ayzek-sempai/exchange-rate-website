@@ -1,0 +1,39 @@
+version: '3.8'
+services:
+  db:
+    image: postgres:15
+    environment:
+      POSTGRES_DB: exchangerates
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: pass
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  backend:
+    build:
+     context: ./backend
+     dockerfile: Dockerfile
+    ports:
+     - "8080:8080"
+    environment:
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_USER: user
+      DB_PASSWORD: pass
+      DB_NAME: exchangerates
+    depends_on:
+      - db
+
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "3000:3000"
+    command: npm start
+    depends_on:
+      - backend
+
+volumes:
+  db-data:
